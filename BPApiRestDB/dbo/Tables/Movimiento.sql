@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Movimiento]
 (
-	[MovimientoID] INT NOT NULL PRIMARY KEY, 
-    [NumeroCuenta] NCHAR(15) NOT NULL, 
+	[MovimientoID] INT IDENTITY NOT NULL PRIMARY KEY, 
+    [NumeroCuenta] VARCHAR(15) NOT NULL, 
     [Fecha] DATETIME NOT NULL, 
     [TipoMovimiento] NCHAR(15) NOT NULL, 
     [Valor] DECIMAL(10, 4) NOT NULL, 
