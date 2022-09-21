@@ -28,4 +28,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="MovimientoID" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="097de892-0c79-4e8a-a09e-c0a5b7bc7a9c" ChangeDateTime="09/21/2022 21:30:00">
+    <Property Name="ElementName" Value="[dbo].[Persona].[Identificacion]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Persona]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PersonaID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0e2cb735-92bf-430e-ad36-2a534b39cb26" ChangeDateTime="09/21/2022 21:35:33">
+    <Property Name="ElementName" Value="[dbo].[Cliente].[PersonaID]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Cliente]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Identificacion2" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ead02cf3-91e6-4e4e-9b0b-602d24c6fc82" ChangeDateTime="09/21/2022 21:35:40">
+    <Property Name="ElementName" Value="[dbo].[Cliente].[Identificacion]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Cliente]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PersonaID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="73614496-3265-443f-bc31-867c3f7377a4" ChangeDateTime="09/21/2022 21:35:44">
+    <Property Name="ElementName" Value="[dbo].[Cliente].[Identificacion2]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Cliente]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Identificacion" />
+  </Operation>
 </Operations>

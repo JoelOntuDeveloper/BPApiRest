@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[Cliente]
 (
 	[ClienteID] INT IDENTITY NOT NULL PRIMARY KEY, 
-    [Identificacion] VARCHAR(15) NOT NULL, 
+    [PersonaID] INT NOT NULL, 
     [Contrasenia] VARCHAR(20) NOT NULL, 
-    [Estado] VARCHAR(20) NOT NULL, 
-    CONSTRAINT [FK_ClientePersona] FOREIGN KEY ([Identificacion]) REFERENCES [dbo].[Persona]([Identificacion])
+    [Estado] BIT NOT NULL DEFAULT 1, 
+    CONSTRAINT [FK_ClientePersona] FOREIGN KEY ([PersonaID]) REFERENCES [dbo].[Persona]([PersonaID])
     )
