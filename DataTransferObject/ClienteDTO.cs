@@ -6,6 +6,8 @@
         public int? Edad { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }
-        public string Estado { get; set; }
+        public bool? Estado { get; set; }
+        public string Contrasenia { get; set; }
+        public int PersonaID { get; set; }
     }
 }

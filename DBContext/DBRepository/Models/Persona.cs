@@ -15,9 +15,8 @@ namespace DBContext.DBRepository.Models
         }
 
         [Key]
-        [StringLength(15)]
-        [Unicode(false)]
-        public string Identificacion { get; set; } = null!;
+        [Column("PersonaID")]
+        public int PersonaId { get; set; }
         [StringLength(100)]
         [Unicode(false)]
         public string Nombre { get; set; } = null!;
@@ -27,12 +26,15 @@ namespace DBContext.DBRepository.Models
         public int? Edad { get; set; }
         [StringLength(200)]
         [Unicode(false)]
-        public string Direccion { get; set; } = null!;
+        public string? Direccion { get; set; }
         [StringLength(15)]
         [Unicode(false)]
         public string? Telefono { get; set; }
+        [StringLength(15)]
+        [Unicode(false)]
+        public string Identificacion { get; set; } = null!;
 
-        [InverseProperty("IdentificacionNavigation")]
+        [InverseProperty("Persona")]
         public virtual ICollection<Cliente> Clientes { get; set; }
     }
 }

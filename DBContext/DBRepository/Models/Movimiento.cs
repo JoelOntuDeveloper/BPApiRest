@@ -18,6 +18,7 @@ namespace DBContext.DBRepository.Models
         [Column(TypeName = "datetime")]
         public DateTime Fecha { get; set; }
         [StringLength(15)]
+        [Unicode(false)]
         public string TipoMovimiento { get; set; } = null!;
         [Column(TypeName = "decimal(10, 4)")]
         public decimal Valor { get; set; }

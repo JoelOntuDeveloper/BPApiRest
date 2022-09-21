@@ -3,7 +3,7 @@ using DBContext.DBRepository;
 using DBContext.DBRepository.Models;
 
 namespace DataAccessLayer {
-    public class PersonaDAL : IMantenimientoPKString<Persona, PersonaDTO> {
+    public class PersonaDAL : IMantenimientoPKInt<Persona, PersonaDTO> {
 
         BancoDbContext db;
 
@@ -13,7 +13,7 @@ namespace DataAccessLayer {
         }
 
         #region Get Methods
-        public SingleResponse<PersonaDTO> Get(string id) {
+        public SingleResponse<PersonaDTO> Get(int id) {
 
             SingleResponse<PersonaDTO> singleResponse = new SingleResponse<PersonaDTO> {
                 Success = false,
@@ -21,6 +21,32 @@ namespace DataAccessLayer {
             };
 
             Persona result = db.Personas.Find(id);
+
+            if (result != null) {
+
+                singleResponse.Success = true;
+                singleResponse.Message = "Búsqueda Exitosa";
+                singleResponse.Result = new PersonaDTO {
+                    Identificacion = result.Identificacion,
+                    Direccion = result.Direccion,
+                    Edad = result.Edad,
+                    Genero = result.Genero,
+                    Nombre = result.Nombre,
+                    Telefono = result.Telefono,
+                };
+            }
+
+            return singleResponse;
+        }
+
+        public SingleResponse<PersonaDTO> GetBy(string identificacion) {
+
+            SingleResponse<PersonaDTO> singleResponse = new SingleResponse<PersonaDTO> {
+                Success = false,
+                Message = "No se ha encontrado a la persona",
+            };
+
+            Persona result = db.Personas.FirstOrDefault(p => p.Identificacion == identificacion);
 
             if (result != null) {
 
@@ -96,7 +122,7 @@ namespace DataAccessLayer {
 
         public SingleResponse<PersonaDTO> Delete(Persona entity) {
 
-            Persona entityToRemove = db.Personas.Find(entity.Identificacion);
+            Persona entityToRemove = db.Personas.FirstOrDefault(p => p.Identificacion == entity.Identificacion);
 
             db.Remove(entityToRemove);
 
@@ -126,7 +152,6 @@ namespace DataAccessLayer {
 
                 return response;
             }
-
 
         }
 
@@ -162,5 +187,10 @@ namespace DataAccessLayer {
             }
         }
         #endregion
+
+        public bool ExistePersonaIdentificacion(int personaID, string identificacion) {
+            return db.Personas.Any(p => p.PersonaId != personaID && p.Identificacion == identificacion);
+        }
+
     }
 }

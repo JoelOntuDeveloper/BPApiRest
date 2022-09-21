@@ -17,19 +17,17 @@ namespace DBContext.DBRepository.Models
         [Key]
         [Column("ClienteID")]
         public int ClienteId { get; set; }
-        [StringLength(15)]
-        [Unicode(false)]
-        public string Identificacion { get; set; } = null!;
+        [Column("PersonaID")]
+        public int PersonaId { get; set; }
         [StringLength(20)]
         [Unicode(false)]
         public string Contrasenia { get; set; } = null!;
-        [StringLength(20)]
-        [Unicode(false)]
-        public string Estado { get; set; } = null!;
+        [Required]
+        public bool? Estado { get; set; }
 
-        [ForeignKey("Identificacion")]
+        [ForeignKey("PersonaId")]
         [InverseProperty("Clientes")]
-        public virtual Persona IdentificacionNavigation { get; set; } = null!;
+        public virtual Persona Persona { get; set; } = null!;
         [InverseProperty("Cliente")]
         public virtual ICollection<Cuentum> Cuenta { get; set; }
     }

@@ -27,12 +27,12 @@ namespace WebAPIBanco.Controllers {
 
             return response;
         }
-        
+
         [HttpGet]
         [Route("Get")]
         public SingleResponse<PersonaDTO> Get(string identificacion) {
 
-            SingleResponse<PersonaDTO> response = personaDAL.Get(identificacion);
+            SingleResponse<PersonaDTO> response = personaDAL.GetBy(identificacion);
 
             return response;
         }
@@ -45,7 +45,7 @@ namespace WebAPIBanco.Controllers {
 
             return response;
         }
-        
+
         [HttpDelete]
         [Route("Delete")]
         public SingleResponse<PersonaDTO> Delete(Persona persona) {

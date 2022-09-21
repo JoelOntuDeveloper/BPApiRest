@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
-    <ProjectReference Include="..\DBContext\DBContext.csproj" />
-    <ProjectReference Include="..\General\General.csproj" />
+    <ProjectReference Include="..\DataTransferObject\DataTransferObject.csproj" />
   </ItemGroup>
 
 </Project>

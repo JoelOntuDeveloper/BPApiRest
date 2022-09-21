@@ -35,9 +35,11 @@ namespace DBContext.DBRepository
         {
             modelBuilder.Entity<Cliente>(entity =>
             {
-                entity.HasOne(d => d.IdentificacionNavigation)
+                entity.Property(e => e.Estado).HasDefaultValueSql("((1))");
+
+                entity.HasOne(d => d.Persona)
                     .WithMany(p => p.Clientes)
-                    .HasForeignKey(d => d.Identificacion)
+                    .HasForeignKey(d => d.PersonaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_ClientePersona");
             });
@@ -45,7 +47,7 @@ namespace DBContext.DBRepository
             modelBuilder.Entity<Cuentum>(entity =>
             {
                 entity.HasKey(e => e.NumeroCuenta)
-                    .HasName("PK__tmp_ms_x__E039507A21075B49");
+                    .HasName("PK__Cuenta__E039507ADB7E074B");
 
                 entity.HasOne(d => d.Cliente)
                     .WithMany(p => p.Cuenta)
@@ -56,19 +58,11 @@ namespace DBContext.DBRepository
 
             modelBuilder.Entity<Movimiento>(entity =>
             {
-                entity.Property(e => e.TipoMovimiento).IsFixedLength();
-
                 entity.HasOne(d => d.NumeroCuentaNavigation)
                     .WithMany(p => p.Movimientos)
                     .HasForeignKey(d => d.NumeroCuenta)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MovimientoCuenta");
-            });
-
-            modelBuilder.Entity<Persona>(entity =>
-            {
-                entity.HasKey(e => e.Identificacion)
-                    .HasName("PK__Persona__D6F931E4EFBF39C4");
             });
 
             OnModelCreatingPartial(modelBuilder);

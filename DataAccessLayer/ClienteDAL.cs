@@ -20,10 +20,11 @@ namespace DataAccessLayer {
             };
 
             ClienteDTO clienteDTO = (from cli in db.Clientes
-                                     join per in db.Personas on cli.Identificacion equals per.Identificacion
+                                     join per in db.Personas on cli.PersonaId equals per.PersonaId
                                      where cli.ClienteId == id
                                      select new ClienteDTO {
-                                         Identificacion = cli.Identificacion,
+                                         PersonaID = cli.PersonaId,
+                                         Identificacion = per.Identificacion,
                                          Direccion = per.Direccion,
                                          Edad = per.Edad,
                                          Estado = cli.Estado,
@@ -50,10 +51,11 @@ namespace DataAccessLayer {
             };
 
             ClienteDTO clienteDTO = (from cli in db.Clientes
-                                     join per in db.Personas on cli.Identificacion equals per.Identificacion
-                                     where cli.Identificacion == identificacion
+                                     join per in db.Personas on cli.PersonaId equals per.PersonaId
+                                     where per.Identificacion == identificacion
                                      select new ClienteDTO {
-                                         Identificacion = cli.Identificacion,
+                                         PersonaID = cli.PersonaId,
+                                         Identificacion = per.Identificacion,
                                          Direccion = per.Direccion,
                                          Edad = per.Edad,
                                          Estado = cli.Estado,
@@ -74,15 +76,12 @@ namespace DataAccessLayer {
 
         public MultipleResponse<ClienteDTO> GetAll() {
 
-            MultipleResponse<ClienteDTO> response = new MultipleResponse<ClienteDTO> {
-                Success = false,
-                Message = "No se pudo encontrar este registro",
-            };
 
             List<ClienteDTO> clienteDTO = (from cli in db.Clientes
-                                           join per in db.Personas on cli.Identificacion equals per.Identificacion
+                                           join per in db.Personas on cli.PersonaId equals per.PersonaId
                                            select new ClienteDTO {
-                                               Identificacion = cli.Identificacion,
+                                               PersonaID = cli.PersonaId,
+                                               Identificacion = per.Identificacion,
                                                Direccion = per.Direccion,
                                                Edad = per.Edad,
                                                Estado = cli.Estado,
@@ -91,12 +90,11 @@ namespace DataAccessLayer {
                                                Telefono = per.Telefono
                                            }).ToList();
 
-            if (clienteDTO != null) {
-
-                response.Success = true;
-                response.Message = "Búsqueda Exitosa";
-                response.MultipleResult = clienteDTO;
-            }
+            MultipleResponse<ClienteDTO> response = new MultipleResponse<ClienteDTO> {
+                Success = false,
+                Message = "No se pudo encontrar este registro",
+                MultipleResult = clienteDTO
+            };
 
             return response;
         }
@@ -119,8 +117,7 @@ namespace DataAccessLayer {
                 response.Success = true;
                 response.Message = "Registro exitoso";
                 response.Result = new ClienteDTO {
-                    Identificacion = entity.Identificacion,
-                    Estado = "True",
+                    Estado = true,
                 };
 
                 return response;
@@ -138,7 +135,7 @@ namespace DataAccessLayer {
                 Message = "No se pudo eliminar el registro",
             };
 
-            Persona entityToRemove = db.Personas.Find(entity.Identificacion);
+            Persona entityToRemove = db.Personas.Find(entity.ClienteId);
 
             db.Remove(entityToRemove);
 
@@ -149,8 +146,7 @@ namespace DataAccessLayer {
                 response.Success = true;
                 response.Message = "Eliminación exitosa";
                 response.Result = new ClienteDTO {
-                    Identificacion = entity.Identificacion,
-                    Estado = "True",
+                    Estado = true,
                 };
 
                 return response;
@@ -177,8 +173,7 @@ namespace DataAccessLayer {
                 response.Success = true;
                 response.Message = "Registro actualizado";
                 response.Result = new ClienteDTO {
-                    Identificacion = entity.Identificacion,
-                    Estado = "True",
+                    Estado = true,
                 };
 
                 return response;
