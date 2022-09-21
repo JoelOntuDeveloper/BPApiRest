@@ -37,6 +37,14 @@ namespace WebAPIBanco.Controllers {
             return response;
         }
 
+        [HttpPost]
+        [Route("Create")]
+        public SingleResponse<Persona> Create(Persona persona) {
+
+            SingleResponse<Persona> response = personaDAL.Create(persona);
+
+            return response;
+        }
 
     }
 }
