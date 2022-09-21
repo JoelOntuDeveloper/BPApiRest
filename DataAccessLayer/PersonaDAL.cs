@@ -3,7 +3,7 @@ using DBContext.DBRepository;
 using DBContext.DBRepository.Models;
 
 namespace DataAccessLayer {
-    public class PersonaDAL : IMantenimientoPKInt<Persona> {
+    public class PersonaDAL : IMantenimientoPKString<Persona> {
 
         BancoDbContext db;
 
@@ -13,7 +13,7 @@ namespace DataAccessLayer {
         }
 
         #region Get Methods
-        public SingleResponse<Persona> Get(int id) {
+        public SingleResponse<Persona> Get(string id) {
 
             SingleResponse<Persona> singleResponse = new SingleResponse<Persona> {
                 Success = false,
@@ -48,15 +48,81 @@ namespace DataAccessLayer {
 
         #region Maintenance Methods
         public SingleResponse<Persona> Create(Persona entity) {
-            throw new NotImplementedException();
+
+            db.Add(entity);
+
+            SingleResponse<Persona> response = new SingleResponse<Persona> {
+                Success = false,
+                Message = "No se pudo registrar a esta persona",
+            };
+
+            try {
+
+                db.SaveChanges();
+
+                response.Success = true;
+                response.Message = "Registro exitoso";
+                response.Result = entity;
+
+                return response;
+
+            } catch (Exception) {
+
+                return response;
+            }
+
         }
 
         public SingleResponse<Persona> Delete(Persona entity) {
-            throw new NotImplementedException();
+
+            db.Remove(entity);
+
+            SingleResponse<Persona> response = new SingleResponse<Persona> {
+                Success = false,
+                Message = "No se pudo eliminar a esta persona",
+            };
+
+            try {
+
+                db.SaveChanges();
+
+                response.Success = true;
+                response.Message = "Registro actualizado";
+                response.Result = entity;
+
+                return response;
+
+            } catch (Exception) {
+
+                return response;
+            }
+
+
         }
 
         public SingleResponse<Persona> Update(Persona entity) {
-            throw new NotImplementedException();
+
+            db.Update(entity);
+
+            SingleResponse<Persona> response = new SingleResponse<Persona> {
+                Success = false,
+                Message = "No se pudo actualizar los datos de esta persona",
+            };
+
+            try {
+
+                db.SaveChanges();
+
+                response.Success = true;
+                response.Message = "Registro actualizado";
+                response.Result = entity;
+
+                return response;
+
+            } catch (Exception) {
+
+                return response;
+            }
         }
         #endregion
     }
