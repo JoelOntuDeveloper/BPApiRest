@@ -21,27 +21,36 @@ namespace WebAPIBanco.Controllers {
 
         [HttpGet]
         [Route("GetAll")]
-        public MultipleResponse<Persona> GetAll() {
+        public MultipleResponse<PersonaDTO> GetAll() {
 
-            MultipleResponse<Persona> response = personaDAL.GetAll();
+            MultipleResponse<PersonaDTO> response = personaDAL.GetAll();
 
             return response;
         }
         
         [HttpGet]
         [Route("Get")]
-        public SingleResponse<Persona> Get(string identificacion) {
+        public SingleResponse<PersonaDTO> Get(string identificacion) {
 
-            SingleResponse<Persona> response = personaDAL.Get(identificacion);
+            SingleResponse<PersonaDTO> response = personaDAL.Get(identificacion);
 
             return response;
         }
 
         [HttpPost]
         [Route("Create")]
-        public SingleResponse<Persona> Create(Persona persona) {
+        public SingleResponse<PersonaDTO> Create(Persona persona) {
 
-            SingleResponse<Persona> response = personaDAL.Create(persona);
+            SingleResponse<PersonaDTO> response = personaDAL.Create(persona);
+
+            return response;
+        }
+        
+        [HttpDelete]
+        [Route("Delete")]
+        public SingleResponse<PersonaDTO> Delete(Persona persona) {
+
+            SingleResponse<PersonaDTO> response = personaDAL.Delete(persona);
 
             return response;
         }

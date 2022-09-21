@@ -1,12 +1,20 @@
 ﻿using DataTransferObject;
 
 namespace DataAccessLayer {
-    public interface IMantenimientoPKString<T> where T : class {
-        MultipleResponse<T> GetAll();
-        SingleResponse<T> Get(string id);
-        SingleResponse<T> Create(T entity);
-        SingleResponse<T> Update(T entity);
-        SingleResponse<T> Delete(T entity);
+    public interface IMantenimientoPKString<T, K>
+        where T : class
+        where K : class {
+
+        #region Read Methods
+        MultipleResponse<K> GetAll();
+        SingleResponse<K> Get(string id);
+        #endregion
+
+        #region Maintenance Methods
+        SingleResponse<K> Create(T entity);
+        SingleResponse<K> Update(T entity);
+        SingleResponse<K> Delete(T entity);
+        #endregion
 
     }
 }

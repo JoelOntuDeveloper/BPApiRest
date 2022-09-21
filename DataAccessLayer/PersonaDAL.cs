@@ -3,7 +3,7 @@ using DBContext.DBRepository;
 using DBContext.DBRepository.Models;
 
 namespace DataAccessLayer {
-    public class PersonaDAL : IMantenimientoPKString<Persona> {
+    public class PersonaDAL : IMantenimientoPKString<Persona, PersonaDTO> {
 
         BancoDbContext db;
 
@@ -13,9 +13,9 @@ namespace DataAccessLayer {
         }
 
         #region Get Methods
-        public SingleResponse<Persona> Get(string id) {
+        public SingleResponse<PersonaDTO> Get(string id) {
 
-            SingleResponse<Persona> singleResponse = new SingleResponse<Persona> {
+            SingleResponse<PersonaDTO> singleResponse = new SingleResponse<PersonaDTO> {
                 Success = false,
                 Message = "No se ha encontrado a la persona",
             };
@@ -26,17 +26,31 @@ namespace DataAccessLayer {
 
                 singleResponse.Success = true;
                 singleResponse.Message = "Búsqueda Exitosa";
-                singleResponse.Result = result;
+                singleResponse.Result = new PersonaDTO {
+                    Identificacion = result.Identificacion,
+                    Direccion = result.Direccion,
+                    Edad = result.Edad,
+                    Genero = result.Genero,
+                    Nombre = result.Nombre,
+                    Telefono = result.Telefono,
+                };
             }
 
             return singleResponse;
         }
 
-        public MultipleResponse<Persona> GetAll() {
+        public MultipleResponse<PersonaDTO> GetAll() {
 
-            List<Persona> personas = db.Personas.ToList();
+            List<PersonaDTO> personas = db.Personas.Select(p => new PersonaDTO {
+                Identificacion = p.Identificacion,
+                Direccion = p.Direccion,
+                Edad = p.Edad,
+                Genero = p.Genero,
+                Nombre = p.Nombre,
+                Telefono = p.Telefono,
+            }).ToList();
 
-            MultipleResponse<Persona> multipleResponse = new MultipleResponse<Persona> {
+            MultipleResponse<PersonaDTO> multipleResponse = new MultipleResponse<PersonaDTO> {
                 Success = true,
                 Message = "Búsqueda Exitosa",
                 MultipleResult = personas
@@ -47,11 +61,11 @@ namespace DataAccessLayer {
         #endregion
 
         #region Maintenance Methods
-        public SingleResponse<Persona> Create(Persona entity) {
+        public SingleResponse<PersonaDTO> Create(Persona entity) {
 
             db.Add(entity);
 
-            SingleResponse<Persona> response = new SingleResponse<Persona> {
+            SingleResponse<PersonaDTO> response = new SingleResponse<PersonaDTO> {
                 Success = false,
                 Message = "No se pudo registrar a esta persona",
             };
@@ -62,7 +76,14 @@ namespace DataAccessLayer {
 
                 response.Success = true;
                 response.Message = "Registro exitoso";
-                response.Result = entity;
+                response.Result = new PersonaDTO {
+                    Identificacion = entity.Identificacion,
+                    Direccion = entity.Direccion,
+                    Edad = entity.Edad,
+                    Genero = entity.Genero,
+                    Nombre = entity.Nombre,
+                    Telefono = entity.Telefono,
+                };
 
                 return response;
 
@@ -73,11 +94,13 @@ namespace DataAccessLayer {
 
         }
 
-        public SingleResponse<Persona> Delete(Persona entity) {
+        public SingleResponse<PersonaDTO> Delete(Persona entity) {
 
-            db.Remove(entity);
+            Persona entityToRemove = db.Personas.Find(entity.Identificacion);
 
-            SingleResponse<Persona> response = new SingleResponse<Persona> {
+            db.Remove(entityToRemove);
+
+            SingleResponse<PersonaDTO> response = new SingleResponse<PersonaDTO> {
                 Success = false,
                 Message = "No se pudo eliminar a esta persona",
             };
@@ -88,7 +111,14 @@ namespace DataAccessLayer {
 
                 response.Success = true;
                 response.Message = "Registro actualizado";
-                response.Result = entity;
+                response.Result = new PersonaDTO {
+                    Identificacion = entity.Identificacion,
+                    Direccion = entity.Direccion,
+                    Edad = entity.Edad,
+                    Genero = entity.Genero,
+                    Nombre = entity.Nombre,
+                    Telefono = entity.Telefono,
+                };
 
                 return response;
 
@@ -100,11 +130,11 @@ namespace DataAccessLayer {
 
         }
 
-        public SingleResponse<Persona> Update(Persona entity) {
+        public SingleResponse<PersonaDTO> Update(Persona entity) {
 
             db.Update(entity);
 
-            SingleResponse<Persona> response = new SingleResponse<Persona> {
+            SingleResponse<PersonaDTO> response = new SingleResponse<PersonaDTO> {
                 Success = false,
                 Message = "No se pudo actualizar los datos de esta persona",
             };
@@ -115,7 +145,14 @@ namespace DataAccessLayer {
 
                 response.Success = true;
                 response.Message = "Registro actualizado";
-                response.Result = entity;
+                response.Result = new PersonaDTO {
+                    Identificacion = entity.Identificacion,
+                    Direccion = entity.Direccion,
+                    Edad = entity.Edad,
+                    Genero = entity.Genero,
+                    Nombre = entity.Nombre,
+                    Telefono = entity.Telefono,
+                };
 
                 return response;
 
