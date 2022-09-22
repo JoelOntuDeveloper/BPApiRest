@@ -57,7 +57,7 @@ namespace BusinessLogicLayer {
             Validation<ClienteDTO> validation = new Validation<ClienteDTO>(response);
             validation.IsRequired(response.Result.Identificacion, "Identificación");
             validation.IsRequired(response.Result.NombrePersona, "Nombre");
-            validation.IsRequired(response.Result.Genero, "Género");            
+            validation.IsRequired(response.Result.Genero, "Género");
 
             ValidarIdentificacionDuplicada(response.Result, validation);
 
@@ -117,7 +117,7 @@ namespace BusinessLogicLayer {
 
         private void ValidarIdentificacionDuplicada(ClienteDTO clienteDTO, Validation<ClienteDTO> validation) {
 
-            if (personaDAL.ExistePersonaIdentificacion(clienteDTO.PersonaID, clienteDTO.Identificacion)) {
+            if (personaDAL.ExistePersonaIdentificacion(Convert.ToInt32(clienteDTO.PersonaID), clienteDTO.Identificacion)) {
                 validation.NewRule("Ya existe un cliente con esta Identificación");
             }
         }

@@ -92,7 +92,7 @@ namespace DataAccessLayer {
 
             MultipleResponse<ClienteDTO> response = new MultipleResponse<ClienteDTO> {
                 Success = false,
-                Message = "No se pudo encontrar este registro",
+                Message = "Búsqueda exitosa",
                 MultipleResult = clienteDTO
             };
 

@@ -8,6 +8,6 @@
         public string Telefono { get; set; }
         public bool? Estado { get; set; }
         public string Contrasenia { get; set; }
-        public int PersonaID { get; set; }
+        public int? PersonaID { get; set; }
     }
 }
