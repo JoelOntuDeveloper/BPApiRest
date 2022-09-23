@@ -57,13 +57,30 @@ namespace DataAccessLayer {
             return response;
         }
 
+        public MultipleResponse<CuentaDTO> GetCuentasByCliente(int clienteID) {
+
+            List<CuentaDTO> cuentas = db.Cuenta.Where(cuenta => cuenta.ClienteId == clienteID)
+                .Select(cuenta => new CuentaDTO {
+                    NumeroCuenta = cuenta.NumeroCuenta,
+                    TipoCuenta = cuenta.TipoCuenta,
+                    Estado = cuenta.Estado,
+                    ClienteId = cuenta.ClienteId,
+                    SaldoInicial = cuenta.SaldoInicial
+                }).ToList();
+
+            MultipleResponse<CuentaDTO> response = new MultipleResponse<CuentaDTO> {
+                Success = true,
+                Message = "Búsqueda Exitosa",
+                MultipleResult = cuentas
+            };
+
+            return response;
+        }
+
         public Cuentum GetEntity(string id) {
             return db.Cuenta.FirstOrDefault(cuenta => cuenta.NumeroCuenta == id);
         }
 
-        public List<Cuentum> GetCuentasByCliente(int clienteID) {
-            return db.Cuenta.Where(cue => cue.ClienteId == clienteID).ToList();
-        }
 
         #endregion
 

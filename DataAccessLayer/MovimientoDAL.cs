@@ -57,6 +57,27 @@ namespace DataAccessLayer {
             return response;
         }
 
+        public MultipleResponse<MovimientoDTO> GetByCuenta(string numeroCuenta) {
+
+            List<MovimientoDTO> movimientos = db.Movimientos.Where(mov => mov.NumeroCuenta == numeroCuenta)
+                .Select(mov => new MovimientoDTO {
+                    MovimientoId = mov.MovimientoId,
+                    Valor = mov.Valor,
+                    TipoMovimiento = mov.TipoMovimiento,
+                    Saldo = mov.Saldo,
+                    Fecha = mov.Fecha,
+                    NumeroCuenta = mov.NumeroCuenta
+                }).ToList();
+
+            MultipleResponse<MovimientoDTO> response = new MultipleResponse<MovimientoDTO> {
+                Success = true,
+                Message = movimientos.Count == 0 ? "No tiene movimientos" : "Búsqueda Exitosa",
+                MultipleResult = movimientos
+            };
+
+            return response;
+        }
+
         public Movimiento GetEntity(int id) {
             return db.Movimientos.FirstOrDefault(mov => mov.MovimientoId == id);
         }

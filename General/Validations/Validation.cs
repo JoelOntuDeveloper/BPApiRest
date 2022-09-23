@@ -28,6 +28,10 @@ namespace General.Validations {
             }
         }
 
+        /// <summary>
+        /// Añade un mensaje de error para cualquier validación que se haga en la capa de negocio
+        /// </summary>
+        /// <param name="message"></param>
         public void NewRule(string message) {
 
             response.HasValidationExcepcion = true;
