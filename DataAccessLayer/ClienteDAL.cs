@@ -43,6 +43,14 @@ namespace DataAccessLayer {
             return singleResponse;
         }
 
+        public Cliente GetEntity(int id) {
+            return db.Clientes.Find(id);
+        }
+
+        public Cliente GetEntityBy(int personaID) {
+            return db.Clientes.FirstOrDefault(cli => cli.PersonaId == personaID);
+        }
+
         public SingleResponse<ClienteDTO> GetBy(string identificacion) {
 
             SingleResponse<ClienteDTO> singleResponse = new SingleResponse<ClienteDTO> {
@@ -129,13 +137,13 @@ namespace DataAccessLayer {
 
         }
 
-        public SingleResponse<ClienteDTO> Delete(Cliente entity) {
+        public SingleResponse<ClienteDTO> Delete(int id) {
             SingleResponse<ClienteDTO> response = new SingleResponse<ClienteDTO> {
                 Success = false,
                 Message = "No se pudo eliminar el registro",
             };
 
-            Persona entityToRemove = db.Personas.Find(entity.ClienteId);
+            Cliente entityToRemove = db.Clientes.Find(id);
 
             db.Remove(entityToRemove);
 
@@ -183,6 +191,7 @@ namespace DataAccessLayer {
                 return response;
             }
         }
+
         #endregion
     }
 }

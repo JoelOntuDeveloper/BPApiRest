@@ -1,6 +1,7 @@
 ﻿using DataTransferObject;
 using DBContext.DBRepository;
 using DBContext.DBRepository.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer {
     public class PersonaDAL : IMantenimientoPKInt<Persona, PersonaDTO> {
@@ -37,6 +38,11 @@ namespace DataAccessLayer {
             }
 
             return singleResponse;
+        }
+
+
+        public Persona GetEntity(int id) {
+            return db.Personas.Find(id);
         }
 
         public SingleResponse<PersonaDTO> GetBy(string identificacion) {
@@ -120,9 +126,10 @@ namespace DataAccessLayer {
 
         }
 
-        public SingleResponse<PersonaDTO> Delete(Persona entity) {
+        public SingleResponse<PersonaDTO> Delete(int id) {
 
-            Persona entityToRemove = db.Personas.FirstOrDefault(p => p.Identificacion == entity.Identificacion);
+            Persona entityToRemove = db.Personas.Where(p => p.PersonaId == id)
+                                                .Include(p => p.Clientes).FirstOrDefault();
 
             db.Remove(entityToRemove);
 
@@ -138,12 +145,12 @@ namespace DataAccessLayer {
                 response.Success = true;
                 response.Message = "Registro actualizado";
                 response.Result = new PersonaDTO {
-                    Identificacion = entity.Identificacion,
-                    Direccion = entity.Direccion,
-                    Edad = entity.Edad,
-                    Genero = entity.Genero,
-                    Nombre = entity.Nombre,
-                    Telefono = entity.Telefono,
+                    Identificacion = entityToRemove.Identificacion,
+                    Direccion = entityToRemove.Direccion,
+                    Edad = entityToRemove.Edad,
+                    Genero = entityToRemove.Genero,
+                    Nombre = entityToRemove.Nombre,
+                    Telefono = entityToRemove.Telefono,
                 };
 
                 return response;

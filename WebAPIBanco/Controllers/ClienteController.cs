@@ -38,5 +38,19 @@ namespace WebAPIBanco.Controllers {
             return clienteBLL.Create(modelo);
         }
 
+        [HttpPut]
+        [Route("Update")]
+        public SingleResponse<ClienteDTO> Update(ClienteDTO modelo) {
+
+            return clienteBLL.Update(modelo);
+        }
+
+        [HttpDelete]
+        [Route("Delete")]
+        public SingleResponse<ClienteDTO> Delete(ClienteDTO modelo) {
+
+            return clienteBLL.Delete(modelo);
+        }
+
     }
 }

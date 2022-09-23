@@ -14,12 +14,13 @@ namespace DataAccessLayer {
         #region Read Methods
         MultipleResponse<K> GetAll();
         SingleResponse<K> Get(int id);
+        T GetEntity(int id);
         #endregion
 
         #region Maintenance Methods
         SingleResponse<K> Create(T entity);
         SingleResponse<K> Update(T entity);
-        SingleResponse<K> Delete(T entity);
+        SingleResponse<K> Delete(int id);
         #endregion
     }
 
